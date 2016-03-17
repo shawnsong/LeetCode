@@ -18,12 +18,6 @@ Some examples:
 
  */
 public class Q224_BasicCalculator {
-
-	public static void main(String[] args) {
-		Q224_BasicCalculator c = new Q224_BasicCalculator();
-		int res = c.calculate("1-2");
-		System.out.println(res);
-	}
 	
 	public int calculate(String s) {
 		ArrayDeque<Integer> stack = new ArrayDeque();
