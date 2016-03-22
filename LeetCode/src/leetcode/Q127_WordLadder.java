@@ -29,7 +29,7 @@ Note:
     All words contain only lowercase alphabetic characters.
 
  */
-public class Q_127WordLadder {
+public class Q127_WordLadder {
 
 	public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
 		if (beginWord == null || endWord == null || beginWord.length() == 0 || endWord.length() == 0)
