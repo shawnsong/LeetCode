@@ -3,6 +3,24 @@ package leetcode;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/*
+ Given a 2D board containing 'X' and 'O', capture all regions surrounded by 'X'.
+
+ A region is captured by flipping all 'O's into 'X's in that surrounded region.
+
+ For example,
+ X X X X
+ X O O X
+ X X O X
+ X O X X
+ After running your function, the board should be:
+
+ X X X X
+ X X X X
+ X X X X
+ X O X X
+ */
+
 class Point {
 	int x;
 	int y;
@@ -69,7 +87,7 @@ public class Q130_SurroundedRegions {
 			for (int j = 0; j < w; j++) {
 				if (board[i][j] == 'V')
 					board[i][j] = 'O';
-				else 
+				else
 					board[i][j] = 'X';
 			}
 		}
@@ -96,12 +114,12 @@ public class Q130_SurroundedRegions {
 			if (board[i][width - 1] == 'O')
 				walkAround(board, i, width - 1);
 		}
-		
+
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				if (board[i][j] == 'V')
 					board[i][j] = 'O';
-				else 
+				else
 					board[i][j] = 'X';
 			}
 		}
