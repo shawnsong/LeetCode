@@ -3,7 +3,7 @@ package leetcode;
 /*
  * Write a function to find the longest common prefix string amongst an array of strings. 
  */
-public class Q14_LongestCommonPrefix {
+public class Q014_LongestCommonPrefix {
 	public String longestCommonPrefix(String[] strs) {
 		if (strs == null || strs.length == 0)
 			return "";
