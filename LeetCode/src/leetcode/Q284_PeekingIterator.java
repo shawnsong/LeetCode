@@ -54,10 +54,4 @@ public class Q284_PeekingIterator implements Iterator<Integer> {
 	public boolean hasNext() {
 		return val != null || iterator.hasNext();
 	}
-
-	@Override
-	public void remove() {
-		// TODO Auto-generated method stub
-		
-	}
 }
