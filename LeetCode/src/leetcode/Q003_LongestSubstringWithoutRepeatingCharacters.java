@@ -16,16 +16,16 @@ must be a substring, "pwke" is a subsequence and not a substring.
  */
 public class Q003_LongestSubstringWithoutRepeatingCharacters {
 	public int lengthOfLongestSubstring(String s) {
-		if (s == null || s.length() == 0)
-			return 0;
+        if (s == null || s.length() == 0)
+            return 0;
 		int max = 1;
 		int len = 0;
 		int startIdx = 0;
-		int[] map = new int[26];
+		int[] map = new int[256];
 		Arrays.fill(map, -1);
 		for (int i = 0; i < s.length(); i++) {
 			
-			int charIdx = s.charAt(i) - 'a';
+			int charIdx = s.charAt(i);
 			if (map[charIdx] == -1) {
 				len++;
 				max = Math.max(max, len);
