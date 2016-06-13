@@ -34,56 +34,57 @@ public class Q051_NQueens {
 	public List<List<String>> solveNQueens(int n) {
 		List<List<String>> res = new LinkedList();
 		if (n == 1) {
-			List<String> list = new LinkedList();
-			list.add("Q");
-			res.add(list);
+			List tmp = new LinkedList<String>();
+			tmp.add("Q");
+			res.add(tmp);
 			return res;
 		}
-		if (n < 4)
+		if (n <= 3)
 			return res;
 
 		char[][] board = new char[n][n];
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i< n; i++)
 			for (int j = 0; j < n; j++)
 				board[i][j] = '.';
-
 		solve(board, 0, res);
+
 		return res;
 	}
 
-	private void solve(char[][] board, int rowIdx, List<List<String>> res) {
-		int n = board.length;
-		if (rowIdx == n) {
-			List<String> tmpRes = new LinkedList();
-			for (int i = 0; i < n; i++) {
+	private void solve(char[][] board, int index, List<List<String>> res) {
+		if (index == board.length) {
+			// add to res
+			List<String> line = new LinkedList();
+			for (int i = 0; i < board.length; i++) {
 				StringBuilder sb = new StringBuilder();
-				for (int j = 0; j < n; j++)
+				for (int j = 0; j < board.length; j++) {
 					sb.append(board[i][j]);
-				tmpRes.add(sb.toString());
+				}
+				line.add(sb.toString());
 			}
-			res.add(tmpRes);
+			res.add(line);
 			return;
 		}
 
-		for (int i = 0; i < n; i++) {
-			if (canPut(board, i, rowIdx, n)) {
-				board[rowIdx][i] = 'Q';
-				solve(board, rowIdx + 1, res);
-				board[rowIdx][i] = '.';
+		for (int i = 0; i < board.length; i++) {
+			if (canPut(board, index, i)) {
+				board[index][i] = 'Q';
+				solve(board, index + 1, res);
+				board[index][i] = '.';
 			}
 		}
 	}
 
-	private boolean canPut(char[][] board, int column, int row, int n) {
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (i == row && board[i][j] == 1)
-					return false;
-				if (j == column && board[i][j] == 1)
-					return false;
-				if ((Math.abs(row - i) == Math.abs(column - j))
-						&& (board[i][j] == 1))
-					return false;
+	private boolean canPut(char[][] board, int rowIdx, int columnIdx) {
+		for (int i = 0; i < rowIdx; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] == 'Q') {
+					if (j == columnIdx)
+						return false;
+					if (Math.abs(rowIdx - i) == Math.abs(columnIdx - j) ) {
+						return false;
+					}
+				}
 			}
 		}
 		return true;
