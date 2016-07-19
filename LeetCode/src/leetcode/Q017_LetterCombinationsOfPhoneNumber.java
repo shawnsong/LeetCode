@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,8 +33,10 @@ public class Q017_LetterCombinationsOfPhoneNumber {
 		
 		String[] table = {"", "abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
 		HashSet<String> set = new HashSet();
-		combine(digits, "", set, table);
-		res.addAll(set);
+//		combine(digits, "", set, table);
+//		res.addAll(set);
+		combine(digits, 0, res, new ArrayList(), table);
+		
 		return res;
 	}
 	
@@ -52,4 +55,21 @@ public class Q017_LetterCombinationsOfPhoneNumber {
 		}
 	}
 	
+	// a more efficient solution
+	private void combine(String digits, int idx, List<String> res, ArrayList<Character> comb, String[] table) {
+		if (idx == digits.length()) {
+			StringBuilder sb = new StringBuilder();
+			for (char c : comb)
+				sb.append(c);
+			res.add(sb.toString());
+		}
+		
+		int num = digits.charAt(idx) - '0' - 1;
+		char[] chars = table[num].toCharArray();
+		for (char c : chars) {
+			comb.add(c);
+			combine(digits, idx + 1, res, comb, table);
+			comb.remove(comb.size() - 1);
+		}
+	}
 }
