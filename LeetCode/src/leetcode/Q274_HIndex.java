@@ -25,18 +25,18 @@ Hint:
 public class Q274_HIndex {
 	
 	public int hIdx(int[] citations) {
-		int[] citeCount = new int[citations.length];
+		int[] paperCount = new int[citations.length];
 		
 		for (int i = 0; i < citations.length; i++) {
 			if (citations[i] > 0) {
-				citeCount[Math.min(citations[i] - 1, citations.length - 1)]++;
+				paperCount[Math.min(citations[i] - 1, citations.length - 1)]++;
 			}
 		}
 		
 		int hIdx = 0;
 		int sum = 0;
-		for (int i = citeCount.length - 1; i >= 0 ; i++) {
-			sum += citeCount[i];
+		for (int i = paperCount.length - 1; i >= 0 ; i++) {
+			sum += paperCount[i];
 			if (sum > i)
 				return i;
 		}
