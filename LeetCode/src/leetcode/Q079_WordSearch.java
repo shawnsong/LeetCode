@@ -47,7 +47,7 @@ public class Q079_WordSearch {
 		if (x < 0 || x >= board.length || y < 0 || y >= board[0].length) {
 			return false;
 		}
-		if (board[x][y] != word.charAt(0))
+		if (board[x][y] != word.charAt(idx))
 			return false;
 		if (visited[x][y])
 			return false;
