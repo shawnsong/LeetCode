@@ -15,8 +15,7 @@ public class Q014_LongestCommonPrefix {
 		for (int i = 0; i < strs.length; i++) {
 			if (strs[i].length() == 0)
 				return "";
-			else if (strs[i].length() < minLength)
-				minLength = strs[i].length();
+			minLength = Math.min(strs[i].length(), minLength);
 		}
 
 		for (int j = 0; j < minLength; j++) {

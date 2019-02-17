@@ -15,7 +15,7 @@ class Q010_RegularExpressionMatchingTest {
         assertTrue(underTest.isMatch("bac", "ba*c"));   // 1
         assertTrue(underTest.isMatch("aaac", "a*c"));   // multiple
 
-        
+
         assertTrue(underTest.isMatch("bc", "b.*c"));
         assertTrue(underTest.isMatch("bc", "b.*c"));
         assertTrue(underTest.isMatch("bac", "b.c"));
