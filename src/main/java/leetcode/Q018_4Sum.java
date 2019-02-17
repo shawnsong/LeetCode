@@ -5,63 +5,65 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-/*
- Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target 
- Find all unique quadruplets in the array which gives the sum of target.
-
- Note:
- Elements in a quadruplet (a,b,c,d) must be in non-descending order. (ie, a ¡Ü b ¡Ü c ¡Ü d)
- The solution set must not contain duplicate quadruplets.
- For example, given array S = {1 0 -1 0 -2 2}, and target = 0.
-
- A solution set is:
- (-1,  0, 0, 1)
- (-2, -1, 1, 2)
- (-2,  0, 0, 2)
+/**
+ * Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target?
+ * Find all unique quadruplets in the array which gives the sum of target.
+ *
+ * Note:
+ *
+ * The solution set must not contain duplicate quadruplets.
+ *
+ * Example:
+ *
+ * Given array nums = [1, 0, -1, 0, -2, 2], and target = 0.
+ *
+ * A solution set is:
+ * [
+ *   [-1,  0, 0, 1],
+ *   [-2, -1, 1, 2],
+ *   [-2,  0, 0, 2]
+ * ]
  */
-
 public class Q018_4Sum {
 
 	public List<List<Integer>> fourSum(int[] nums, int target) {
-		Arrays.sort(nums);
-		int i;
-		int j;
-		List<List<Integer>> ret = new ArrayList();
-		for (i = 0; i < nums.length; i++) {
-			if (i > 0 && nums[i] == nums[i - 1])
-				continue;
-			for (j = nums.length - 1; j > i + 2; j--) {
-				if (j < nums.length - 1 && nums[j] == nums[j + 1])
-					continue;
-				int start = i + 1;
-				int end = j - 1;
 
-				while (start < end) {
-					int sum = nums[i] + nums[j] + nums[start] + nums[end];
-					if (sum == target) {
-						List<Integer> ans = new LinkedList();
-						ans.add(nums[i]);
-						ans.add(nums[start]);
-						ans.add(nums[end]);
-						ans.add(nums[j]);
-						ret.add(ans);
 
-						start++;
-						while (start < end && nums[start] == nums[start - 1])
-							start++;
+        List<List<Integer>> res = new LinkedList();
+        if (nums == null || nums.length < 4) {
+            return res;
+        }
 
-						end--;
-						while (start < end && nums[end] == nums[end + 1])
-							end--;
-					} else if (sum < target) {
-						start++;
-					} else
-						end--;
-				}
-			}
+        Arrays.sort(nums);
 
-		}
+        for (int i = 0; i < nums.length - 3; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            for (int j = i + 1; j < nums.length - 2; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                int left = j + 1;
+                int right = nums.length - 1;
+                while (left < right) {
+                    int sum = nums[i] + nums[j] + nums[left] + nums[right];
+                    if (sum == target) {
+                        res.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right]));
+                        left++;
+                        while (left < right && nums[left] == nums[left - 1]) {
+                            left++;
+                        }
+                        right--;
+                    } else if (sum < target) {
+                        left++;
+                    } else {
+                        right--;
+                    }
+                }
+            }
+        }
 
-		return ret;
-	}
+        return res;
+    }
 }

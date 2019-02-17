@@ -12,45 +12,45 @@ Return the sum of the three integers. You may assume that each input would have 
 
  */
 public class Q016_3SumClosest {
-	public static void main(String[] a) {
-		Q016_3SumClosest o = new Q016_3SumClosest();
-		int[] nums = {1,1,1,1};
-		int res = o.threeSumClosest(nums, 1);
-		System.out.println(res);
-		
-	}
+
 	public int threeSumClosest(int[] nums, int target) {
-		Arrays.sort(nums);
-		
-		int diff = Integer.MAX_VALUE;
-		int sum = 0;
-		for (int i = 0; i < nums.length -2; i++) {
-			int start = i + 1;
-			int end = nums.length - 1;
-			
-			while (start < end) {
-				
-				int tmpSum = nums[i] + nums[start] + nums[end];
-				if (tmpSum == target)
-					return target;
-				else {
-					
-					if (Math.abs(tmpSum - target) < diff) {
-						sum = tmpSum;
-						diff = Math.abs(tmpSum - target);
-					}
-					if (nums[i] + nums[start] > target && nums[start] > 0)
-						break;
-					if (nums[i] + nums[end] < target && nums[end] < 0)
-						break;
-					if (tmpSum < target)
-						start++;
-					else
-						end--;
-				}
-			}
-		}
-		
-		return sum;
-	}
+
+
+        if (nums == null || nums.length < 3) {
+            return 0;
+        }
+
+        int minDiff = Integer.MAX_VALUE;
+        int res = 0 ;
+
+        Arrays.sort(nums);
+        for (int start = 0; start < nums.length - 2; start++) {
+            if (start > 0 && nums[start] == nums[start - 1]) {
+                continue;
+            }
+
+            int left = start + 1;
+            int right = nums.length - 1;
+
+            while (left < right) {
+                int sum = nums[start] + nums[left] + nums[right];
+                if (sum == target) {
+                    return sum;
+                }
+
+                int diff = Math.abs(target - sum);
+                if (diff < minDiff) {
+                    res = sum;
+                    minDiff = diff;
+                }
+                if (sum < target) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+
+        return res;
+    }
 }
