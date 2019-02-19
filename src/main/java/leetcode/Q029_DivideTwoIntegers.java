@@ -9,36 +9,41 @@ package leetcode;
 public class Q029_DivideTwoIntegers {
 
 	public int divide(int dividend, int divisor) {
-		if (divisor == 0)
-			return Integer.MAX_VALUE;
-		boolean isNegative = (dividend < 0 && divisor > 0 || dividend > 0
-				&& divisor < 0) ? true : false;
+	    if (divisor == 0) {
+	        return Integer.MAX_VALUE;
+        }
+        if (dividend == 0) {
+            return 0;
+        }
+        if (dividend == Integer.MIN_VALUE && divisor == -1) {
+            return Integer.MAX_VALUE;
+        }
+        if (dividend == Integer.MIN_VALUE && divisor == 1) {
+            return Integer.MIN_VALUE;
+        }
 
-		long dividendL = Math.abs((long) dividend);
-		long divisorL = Math.abs((long) divisor);
+        int sign = 1;
+        if (dividend < 0 && divisor > 0 || dividend > 0 && divisor < 0) {
+            sign = -1;
+        }
 
-		if (divisorL > dividendL)
-			return 0;
+        int ans = 0;
 
-		long multiply = 1;
-		long sum = divisorL;
-		while (dividendL >= sum) {
-			sum = (long) sum << 1;
-			multiply = (long) multiply << 1;
-		}
-
-		sum = sum >> 1;
-		multiply = multiply >> 1;
-
-		if (!isNegative && multiply > Integer.MAX_VALUE)
-			return Integer.MAX_VALUE;
-		else {
-			int res = (int) multiply
-					+ divide((int) dividendL - (int) sum, (int) divisorL);
-			if (isNegative)
-				return 0 - res;
-			else
-				return res;
-		}
-	}
+        while (dividend >= divisor) {
+            int divisorMultiples = divisor;
+            int times = 1;
+            while (dividend > (divisorMultiples << 1)) {
+                if ((divisorMultiples << 1)> 0) {
+                    times = times << 1;
+                    divisorMultiples = divisorMultiples << 1;
+                } else {
+                    // overflow
+                    break;
+                }
+            }
+            ans += times;
+            dividend -= divisorMultiples;
+        }
+        return ans;
+    }
 }
