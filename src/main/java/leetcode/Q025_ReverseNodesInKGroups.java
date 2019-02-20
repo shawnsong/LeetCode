@@ -19,51 +19,59 @@ package leetcode;
 
  */
 public class Q025_ReverseNodesInKGroups {
-	
+
 	public ListNode reverseKGroup(ListNode head, int k) {
-		ListNode n = head;
-		boolean valid = longerThanLength(n, k);
-		ListNode fakeHead = new ListNode(0);
-		ListNode pre = fakeHead;
-		pre.next = head;
-		while (valid) {
-			reverse(pre, n, k);
-			pre = n;
-			n = n.next;
-			
-			valid = longerThanLength(n, k);
+		if (head == null || k <= 0) {
+			return head;
 		}
-		
+
+		boolean valid = longerThanRest(head, k);
+
+		ListNode fakeHead = new ListNode(0);
+		fakeHead.next = head;
+		ListNode pre = fakeHead;
+		ListNode cur = head;
+		while (valid) {
+			reverseInRange(pre, cur, k);
+			pre = cur;
+			cur = cur.next;
+			valid = longerThanRest(cur, k);
+		}
 		return fakeHead.next;
 	}
-	
-	private boolean longerThanLength(ListNode head, int len) {
-		ListNode n = head;
+
+	private boolean longerThanRest(ListNode head, int len) {
 		int count = 0;
 		ListNode fakeHead = new ListNode(0);
 		fakeHead.next = head;
-		n = fakeHead;
+		ListNode n = fakeHead;
+
 		while (n.next != null) {
 			n = n.next;
 			count++;
+			if (count == len) {
+				break;
+			}
 		}
-		return count >= len;
+		return count == len;
 	}
-	
-	private void reverse(ListNode last, ListNode head, int k) {
-		ListNode n = head;
-		
-		ListNode next = null;
-		ListNode pre = null;
+
+	private void reverseInRange(ListNode preLast, ListNode head, int len) {
+		ListNode fakeHead = new ListNode(0);
+		fakeHead.next = head;
+
 		int count = 0;
-		while (count < k) {
-			next = n.next;
-			n.next = pre;
-			pre = n;
-			n = next;
+		ListNode pre = null;
+		ListNode cur = head;
+		ListNode next = null;
+		while (count < len) {
+			next = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = next;
 			count++;
 		}
-		last.next = pre;
+		preLast.next = pre;
 		head.next = next;
 	}
 }
