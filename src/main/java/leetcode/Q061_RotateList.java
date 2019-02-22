@@ -8,39 +8,43 @@ Given 1->2->3->4->5->NULL and k = 2,
 return 4->5->1->2->3->NULL.
  */
 public class Q061_RotateList {
-	public ListNode rotateRight(ListNode head, int k) {
-		if (head == null || head.next == null)
-			return head;
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null) {
+            return head;
+        }
 
-		int len = getLength(head);
-		if (k % len == 0)
-			return head;
-		k = k % len;
-		int x = len - k;
+        int len = getListLength(head);
+        if (k % len == 0) {
+            return head;
+        }
 
-		int count = 0;
-		ListNode n = head;
+        k = k % len;
+        int count = 1;
+        ListNode n = head;
+        while (count < k) {
+            n = n.next;
+            count++;
+        }
+        ListNode fakeHead = new ListNode(0);
+        fakeHead.next = head;
+        ListNode slow = fakeHead;
+        while (n.next != null) {
+            slow = slow.next;
+            n = n.next;
+        }
+        ListNode next = slow.next;
+        slow.next = null;
+        n.next = head;
+        return next;
+    }
 
-		ListNode pre = null;
-		while (count < x) {
-			pre = n;
-			n = n.next;
-			count++;
-		}
-		pre.next = null;
-		ListNode newHead = n;
-		while (n.next != null)
-			n = n.next;
-		n.next = head;
-		return newHead;
-	}
-
-	private int getLength(ListNode head) {
-		int count = 0;
-		while (head != null) {
-			count++;
-			head = head.next;
-		}
-		return count;
-	}
+    private int getListLength(ListNode head) {
+        ListNode n = head;
+        int count = 0;
+        while (n != null) {
+            n = n.next;
+            count++;
+        }
+        return count;
+    }
 }
