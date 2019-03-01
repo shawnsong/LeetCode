@@ -94,51 +94,43 @@ public class Q130_SurroundedRegions {
 	}
 
 	// dfs will cause java.lang.StackOverflowError for large input
-	public void solveDfs(char[][] board) {
-		if (board == null || board.length == 0)
-			return;
-		int height = board.length;
-		int width = board[0].length;
-		for (int i = 0; i < width; i++) {
-			if (board[0][i] == 'O') {
-				walkAround(board, 0, i);
-			}
-			if (board[height - 1][i] == 'O') {
-				walkAround(board, height - 1, i);
-			}
-		}
+    public void solveDfs(char[][] board) {
+        if (board == null || board.length == 0) return;
 
-		for (int i = 0; i < height; i++) {
-			if (board[i][0] == 'O')
-				walkAround(board, i, 0);
-			if (board[i][width - 1] == 'O')
-				walkAround(board, i, width - 1);
-		}
+        int m = board.length, n = board[0].length;
+        for (int i = 0; i < m; i++) {
+            walkAround(board, i, 0);
+        }
+        for (int i = 0; i < n; i++) {
+            walkAround(board, 0, i);
+        }
 
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				if (board[i][j] == 'V')
-					board[i][j] = 'O';
-				else
-					board[i][j] = 'X';
-			}
-		}
-	}
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 'O') {
+                    board[i][j] = 'X';
+                } else if (board[i][j] == 'V'){
+                    board[i][j] = 'O';
+                }
+            }
+        }
+    }
 
-	private void walkAround(char[][] board, int y, int x) {
-		if (x < 0 || x >= board[0].length || y < 0 || y >= board.length)
-			return;
+    private void walkAround(char[][] board, int rowIdx, int colIdx) {
+        if (rowIdx < 0 || rowIdx == board.length || colIdx < 0 || colIdx == board[0].length) {
+            return;
+        }
+        if (board[rowIdx][colIdx] == 'X' || board[rowIdx][colIdx] == 'V') {
+            return;
+        }
 
-		if (board[y][x] != 'O')
-			return;
-		board[y][x] = 'V';
+        board[rowIdx][colIdx] = 'V';
+        int[][] steps = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
+        for (int i = 0; i < steps.length; i++) {
+            int nextRowIdx = rowIdx + steps[i][0];
+            int nextColIdx = colIdx + steps[i][1];
 
-		// walks around
-		for (int i = 0; i < 4; i++) {
-			int x1 = x + steps[i][0];
-			int y1 = y + steps[i][1];
-
-			walkAround(board, y1, x1);
-		}
-	}
+            walkAround(board, nextRowIdx, nextColIdx);
+        }
+    }
 }
