@@ -18,23 +18,26 @@ import java.util.Set;
 public class Q139_WordBreak {
 
 	public boolean wordBreak(String s, Set<String> wordDict) {
-		
-		boolean[] dp = new boolean[s.length() + 1];
-		
-		//Arrays.fill(dp, true);
-		dp[s.length()] = true;
-		
-		for (int i = s.length(); i >= 0; i--) {
-			if (dp[i] == false)
-				continue;
-			for (int j = i - 1; j >= 0; j--) {
-				String word=  s.substring(j, i);
-				if (dp[i] == true && wordDict.contains(word)) {
-					dp[j] = true;
-				}
-			}
-		}
-		
-		return dp[0];
+
+        if (s ==null || s.length() == 0) {
+            return false;
+        }
+
+
+        int len = s.length();
+        boolean[] dp = new boolean[len + 1];
+        dp[0] = true;
+
+        for (int i = 0; i < len; i++) {
+            if(!dp[i] ) {
+                continue;
+            }
+            for (int j = i + 1; j <= len; j++) {
+                if (wordDict.contains(s.substring(i, j))) {
+                    dp[j] = true;
+                }
+            }
+        }
+        return dp[len];
 	}
 }
