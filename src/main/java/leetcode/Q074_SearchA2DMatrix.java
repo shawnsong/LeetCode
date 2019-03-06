@@ -34,6 +34,29 @@ public class Q074_SearchA2DMatrix {
 			return false;
 		
 	}
+
+	// treat the matrix as a sorted array
+	public boolean searchMatrix1(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0) {
+            return false;
+        }
+
+        int m = matrix.length, n = matrix[0].length;
+        int low = 0, high = m * n - 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int i = mid / n;
+            int j = mid % n;
+            if (matrix[i][j] == target) {
+                return true;
+            } else if (matrix[i][j] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return false;
+    }
 	
 	public int binarySearch(int[][] m, int t, int idx, int flag) {
 		int[] arr = null;

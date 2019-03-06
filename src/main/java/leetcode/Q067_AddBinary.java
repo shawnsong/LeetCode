@@ -9,55 +9,38 @@ package leetcode;
  Return "100". 
  */
 public class Q067_AddBinary {
-	public static String addBinary(String a, String b) {
-		if (a == null || b == null)
-			return a == null ? b : a;
-		int len1 = a.length();
-		int len2 = b.length();
-		
-		int i = len1 - 1;
-		int j = len2 - 1;
-		
-		StringBuilder sb = new StringBuilder();
-		int carry = 0;
-		
-		while (i >= 0 && j >= 0) {
-			int d = a.charAt(i) - '0' + b.charAt(j) - '0' + carry;
-			if (d >= 2) {
-				d = d % 2;
-				carry = 1;
-			} else {
-				carry = 0;
-			}
-			i--;
-			j--;
-			sb.append(d);
-		}
-		
-		while (i >= 0) {
-			int d = a.charAt(i) - '0' + carry;
-			if (d == 2) {
-				d = 0;
-				carry = 1;
-			} else
-				carry = 0;
-			i--;
-			sb.append(d);
-		}
-		
-		while (j >= 0) {
-			int d = b.charAt(j) - '0' + carry;
-			if (d == 2) {
-				d = 0;
-				carry = 1;
-			} else
-				carry = 0;
-			j--;
-			sb.append(d);
-		}
-		if (carry == 1)
-			sb.append(1);
-		
-		return sb.reverse().toString();
-	}
+	public String addBinary(String a, String b) {
+	    if (a == null || b == null) {
+	        return a == null ? b : a;
+        }
+
+        int i = a.length() - 1, j = b.length() - 1;
+	    StringBuilder sb = new StringBuilder();
+	    int carrier = 0;
+
+	    while (i >= 0 || j >= 0) {
+	        int sum  = 0;
+	        if (i >= 0) {
+	            sum += a.charAt(i) - '0';
+	            i--;
+            }
+
+            if (j >=0) {
+                sum += b.charAt(j) - '0';
+                j--;
+            }
+            sum += carrier;
+            if (sum > 1) {
+                sum -= 2;
+                carrier = 1;
+            } else {
+                carrier = 0;
+            }
+            sb.append(sum);
+        }
+        if (carrier == 1) {
+            sb.append(1);
+        }
+        return sb.reverse().toString();
+    }
 }

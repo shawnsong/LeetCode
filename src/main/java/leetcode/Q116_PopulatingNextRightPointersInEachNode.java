@@ -40,7 +40,29 @@ After calling your function, the tree should look like:
 
  */
 public class Q116_PopulatingNextRightPointersInEachNode {
-	public void connect(TreeLinkNode root) {
+    public void connect(TreeLinkNode root) {
+        if(root == null) {
+            return;
+        }
+
+        TreeLinkNode levelStart = root;
+        while (levelStart != null) {
+            TreeLinkNode n = levelStart;
+            while (n != null) {
+                if (n.left != null) {
+                    n.left.next = n.right;
+                }
+                if (n.right != null && n.next != null) {
+                    n.right.next = n.next.left;
+                }
+                n = n.next;
+            }
+            levelStart = levelStart.left;
+        }
+    }
+
+
+	public void connect1(TreeLinkNode root) {
 		if (root == null)
 			return;
 		Queue<TreeLinkNode> queue = new LinkedList();

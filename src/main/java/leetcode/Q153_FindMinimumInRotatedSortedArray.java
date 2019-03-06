@@ -14,28 +14,23 @@ public class Q153_FindMinimumInRotatedSortedArray {
 	public int findMin(int[] nums) {
 		if (nums.length == 1) 
 			return nums[0];
-		int leftIdx = 0;
-		int rightIdx = nums.length - 1;
-		while (leftIdx <= rightIdx) {
-			if (nums[leftIdx] < nums[rightIdx])
-				return nums[leftIdx];
-			
-			if (leftIdx == rightIdx)
-				return nums[leftIdx];
-			
-			int midIdx = leftIdx + (rightIdx - leftIdx) / 2;
-			
-			if (midIdx < rightIdx && nums[midIdx] > nums[midIdx + 1])
-				return nums[midIdx];
-			if (midIdx > leftIdx && nums[midIdx] < nums[midIdx - 1])
-				return nums[midIdx];
-			
-			if (nums[midIdx] > nums[leftIdx]) {// left is ordered
-				leftIdx = midIdx + 1;
-			} else {
-				rightIdx = midIdx - 1;
-			}
-		}
-		return -1;
+		int left = 0;
+		int right = nums.length - 1;
+		while (left < right) {
+		    if (nums[left] < nums[right]) {
+		        break;
+            }
+
+            int mid = left + (right - left) / 2;
+		    // because mid is left biased, so need to use >=, NOT =
+            // for example: [2, 1]: nums[left] == nums[mid] == 2
+		    if (nums[mid] >= nums[left]) {
+		        left = mid + 1;
+            } else {
+		        right = mid;
+            }
+        }
+
+        return nums[left];
 	}
 }

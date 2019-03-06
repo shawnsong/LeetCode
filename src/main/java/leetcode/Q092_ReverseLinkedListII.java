@@ -1,19 +1,64 @@
 package leetcode;
 
-/*
- Reverse a linked list from position m to n. Do it in-place and in one-pass.
+/**
+ * Reverse a linked list from position m to n. Do it in one-pass.
+ *
+ * Note: 1 â‰¤ m â‰¤ n â‰¤ length of list.
+ *
+ * Example:
+ *
+ * Input: 1->2->3->4->5->NULL, m = 2, n = 4
+ * Output: 1->4->3->2->5->NULL
+ */
 
- For example:
- Given 1->2->3->4->5->NULL, m = 2 and n = 4,
-
- return 1->4->3->2->5->NULL.
-
- Note:
- Given m, n satisfy the following condition:
- 1 ¡Ü m ¡Ü n ¡Ü length of list. 
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
  */
 public class Q092_ReverseLinkedListII {
-	public ListNode reverseBetween(ListNode head, int m, int n) {
+
+
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode fakeHead = new ListNode(0);
+        fakeHead.next = head;
+        ListNode prev = fakeHead;
+        ListNode cur = head;
+        int count = 1;
+        while (count < m) {
+            prev = cur;
+            cur = cur.next;
+            count++;
+        }
+
+        ListNode nodeBeforeReverse = prev;
+        while (count <= n) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        nodeBeforeReverse.next.next = cur;
+        nodeBeforeReverse.next = prev;
+        return fakeHead.next;
+    }
+
+    /**
+     * Solultion 2: find the start and the end of the list that needs to be reversed. Reverse the list and
+     * put it back to the original list
+     * @param head
+     * @param m
+     * @param n
+     * @return
+     */
+    public ListNode reverseBetween2(ListNode head, int m, int n) {
 		if (head == null || head.next == null)
 			return head;
 		
