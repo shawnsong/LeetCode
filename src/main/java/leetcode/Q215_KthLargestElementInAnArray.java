@@ -2,34 +2,52 @@ package leetcode;
 
 import java.util.PriorityQueue;
 
-/*
-Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, 
-not the kth distinct element.
 
-For example,
-Given [3,2,1,5,6,4] and k = 2, return 5.
-
-Note:
-You may assume k is always valid, 1 ¡Ü k ¡Ü array's length.
- */
 public class Q215_KthLargestElementInAnArray {
-	public int findKthLargest(int[] nums, int k) {
-		if (k >= nums.length || k < 0)
-			return -1;
-		
-		PriorityQueue<Integer> heap = new PriorityQueue();
-		
-		int i =0;
-		for (; i < k; i++) {
-			heap.add(nums[i]);
-		}
-		for (; i < nums.length; i++) {
-			if (nums[i] > heap.peek()) {
-				heap.poll();
-				heap.add(nums[i]);
-			}
-		}
-		
-		return heap.peek();
-	}
+    public int findKthLargest(int[] nums, int k) {
+        if (nums == null || nums.length < k) {
+            return -1;
+        }
+
+        k = nums.length - k;
+        int left = 0, right = nums.length - 1;
+        while (true) {
+            int index = partition(nums, left, right);
+            if (index > k) {
+                right = index - 1;
+            } else if (index < k) {
+                left = index + 1;
+            } else {
+                break;
+            }
+        }
+        return nums[k];
+    }
+
+    int partition(int[] nums, int left, int right) {
+        int pivot = nums[left];
+        int i = left + 1, j = right;
+        while (true) {
+            while (i < right && nums[i] < pivot) {
+                i++;
+            }
+            while (j > left && nums[j] > pivot) {
+                j--;
+            }
+            if (i >= j) {
+                break;
+            }
+            swap(nums, i, j);
+            i++;
+            j--;
+        }
+        swap(nums, left, j);
+        return j;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
 }
