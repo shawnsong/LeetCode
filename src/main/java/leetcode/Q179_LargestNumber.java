@@ -19,17 +19,8 @@ public class Q179_LargestNumber {
 		String[] numsStr = new String[nums.length];
 		for (int i = 0; i < numsStr.length; i++)
 			numsStr[i] = String.valueOf(nums[i]);
-		
-		Arrays.sort(numsStr, new Comparator<String>() {
-			@Override
-			public int compare(String s1, String s2) {
-				
-			
-				String ss1 = s1 + s2;
-				String ss2 = s2 + s1;
-				return ss2.compareTo(ss1);
-			}
-		});
+
+		Arrays.sort(numsStr, (s1, s2) -> (s2+s1).compareTo(s1+s2) );
 		
 		if (numsStr[0].equals("0"))
 			return "0";

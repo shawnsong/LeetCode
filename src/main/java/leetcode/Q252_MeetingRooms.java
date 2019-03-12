@@ -38,17 +38,7 @@ public class Q252_MeetingRooms {
 		if (intervals == null || intervals.length <= 1)
 			return true;
 		
-		Arrays.sort(intervals, new Comparator<Interval>() {
-			public int compare(Interval i1, Interval i2) {
-//				if (i1.start < i2.start)
-//					return -1;
-//				else if (i1.start == i2.start)
-//					return 0;
-//				else
-//					return 1;
-				return i1.start - i2.start;
-			}
-		});
+        Arrays.sort(intervals, Comparator.comparingInt(i -> i.start));
 		
 		for (int i = 0; i < intervals.length - 1; i++) {
 			if (intervals[i].end > intervals[i + 1].start)
