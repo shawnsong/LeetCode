@@ -1,8 +1,8 @@
 package leetcode;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class Q207_CourseScheduleTest {
@@ -23,7 +23,4 @@ public class Q207_CourseScheduleTest {
         assertTrue(test.canFinishBfs(5, courses));
     }
 
-    @Test
-    public void canFinishDfs() {
-    }
 }
