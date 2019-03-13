@@ -16,5 +16,9 @@ class Q004_MedianOfTwoSortedArraysTest {
 
         num2 = new int[] {3,4,5,6,7};
         assertEquals(4, test.findMedianSortedArrays(num1, num2));
+
+        num1 = new int[] {1, 3};
+        num2 = new int[] {2};
+        assertEquals(2, test.findMedianSortedArrays(num1, num2));
     }
 }
