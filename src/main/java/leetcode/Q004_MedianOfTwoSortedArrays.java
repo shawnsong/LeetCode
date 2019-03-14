@@ -40,22 +40,21 @@ public class Q004_MedianOfTwoSortedArrays {
 
         while (low <= high) {
             int partition1 = low + (high - low) / 2;
-            int partition2 = (m + n + 1) / 2 - partition1;
+            int partition2 = (m + n + 1) / 2 - partition1; // + 1 because it works well for both odd and even of (len1 + len2)
 
-            int leftMax1 = partition1 == 0 ? Integer.MIN_VALUE : nums1[partition1 - 1];
-            int rightMin1 = partition1 == m ? Integer.MAX_VALUE : nums1[partition1];
+            int maxLeft1 = partition1 == 0 ? Integer.MIN_VALUE : nums1[partition1 - 1];
+            int minRight1 = partition1 == m ? Integer.MAX_VALUE : nums1[partition1];
 
-            int leftMax2 = partition2 == 0 ? Integer.MIN_VALUE : nums2[partition2 - 1];
-            int rightMin2 = partition2 == m ? Integer.MAX_VALUE : nums2[partition2];
+            int maxLeft2 = partition2 == 0 ? Integer.MIN_VALUE : nums2[partition2 - 1];
+            int minRight2 = partition2 == n ? Integer.MAX_VALUE : nums2[partition2];
 
-            if (leftMax1 <= rightMin2 && leftMax2 <= rightMin1) {
-                // find position of partition
-                if (m + n % 2 == 1) {
-                    return Math.max(leftMax1, leftMax2);
+            if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {
+                if ( (m + n) % 2 == 0 ) {
+                    return ((double)Math.min(minRight1, minRight2) + Math.max(maxLeft1, maxLeft2)) / 2;
                 } else {
-                    return ((double)(Math.max(leftMax1, leftMax2)) + Math.min(rightMin1, rightMin2)) / 2.0;
+                    return Math.max(maxLeft1, maxLeft2);
                 }
-            } else if (leftMax1 > rightMin2) {
+            } else if (maxLeft1 > minRight2) {
                 high = partition1 - 1;
             } else {
                 low = partition1 + 1;
