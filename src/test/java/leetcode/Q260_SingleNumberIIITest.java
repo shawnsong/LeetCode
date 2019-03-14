@@ -9,7 +9,7 @@ public class Q260_SingleNumberIIITest {
 
     @Test
     public void singleNumber() {
-        test.singleNumber(new int[] {11, 22, 33, 5, 6, 11, 22, 33});
+        test.singleNumber(new int[] {11, 11, 22, 22, 33, 33, 5, 15});
 
     }
 }
