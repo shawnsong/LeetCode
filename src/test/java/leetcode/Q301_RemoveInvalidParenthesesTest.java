@@ -10,6 +10,8 @@ class Q301_RemoveInvalidParenthesesTest {
 
     @Test
     void removeInvalidParentheses() {
+
+        System.out.println(test.removeInvalidParentheses("()())"));
         System.out.println(test.removeInvalidParentheses("()())())"));
     }
 }
