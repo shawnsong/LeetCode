@@ -2,40 +2,31 @@ package leetcode;
 
 public class Q313_SuperUglyNumber {
 
-	public static void main(String[] args) {
-		int n = 12;
-		int[] primes = { 2, 3, 5, 7 };
-
-		Q313_SuperUglyNumber obj = new Q313_SuperUglyNumber();
-
-		int num = obj.nthSuperUglyNumber(12, primes);
-		System.out.println(num);
-	}
-
 	public int nthSuperUglyNumber(int n, int[] primes) {
-		int[] primesPos = new int[primes.length];
-
 		int[] dp = new int[n];
-		dp[0] = 1;
-		for (int i = 1; i < n; i++) {
-			dp[i] = min(dp, primes, primesPos);
-		}
+		int[] primePos = new int[primes.length];
 
-		return dp[n - 1];
+		dp[0] = primes[0];
+		for (int i = 1; i < n; i++) {
+			dp[i] = findMin(dp, primes, primePos);
+		}
+		return dp[n-1];
 	}
 
-	private int min(int[] dp, int[] primes, int[] primePos) {
+	private int findMin(int[] dp, int[] primes, int[] uglyPos) {
 		int min = Integer.MAX_VALUE;
-		for (int i = 0; i < primePos.length; i++) {
-			int tmpRes = dp[primePos[i]] * primes[i];
-			if (min > tmpRes) {
-				min = tmpRes;
-			}
+
+		for (int i = 0; i < primes.length; i++) {
+			int tmpRes = dp[uglyPos[i]] * primes[i];
+			min = Math.min(min, tmpRes);
 		}
-		for (int i = 0; i < primePos.length; i++) {
-			if (min == dp[primePos[i]] * primes[i])
-				primePos[i]++;
+
+		for (int i = 0; i < primes.length; i++) {
+			if (dp[uglyPos[i]] * primes[i] == min) {
+				uglyPos[i]++;
+			}
 		}
 		return min;
 	}
+
 }
