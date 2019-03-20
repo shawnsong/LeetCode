@@ -24,44 +24,35 @@ package leetcode;
 public class Q004_MedianOfTwoSortedArrays {
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        if (nums1 == null || nums2 == null) {
-            throw new IllegalArgumentException("wrong input");
-        }
-
-        int m = nums1.length;
-        int n = nums2.length;
-
-        if (m > n ) {
+        int m = nums1.length, n = nums2.length;
+        if (m > n) {
             return findMedianSortedArrays(nums2, nums1);
         }
 
-        int low = 0;
-        int high = m;
-
+        int low = 0, high = m;
         while (low <= high) {
             int partition1 = low + (high - low) / 2;
-            int partition2 = (m + n + 1) / 2 - partition1; // + 1 because it works well for both odd and even of (len1 + len2)
+            int partition2 = (m + n + 1) / 2 - partition1;
 
-            int maxLeft1 = partition1 == 0 ? Integer.MIN_VALUE : nums1[partition1 - 1];
-            int minRight1 = partition1 == m ? Integer.MAX_VALUE : nums1[partition1];
+            int leftMax1 = partition1 == 0 ? Integer.MIN_VALUE : nums1[partition1 - 1];
+            int rightMin1 = partition1 == m ? Integer.MAX_VALUE : nums1[partition1];
 
-            int maxLeft2 = partition2 == 0 ? Integer.MIN_VALUE : nums2[partition2 - 1];
-            int minRight2 = partition2 == n ? Integer.MAX_VALUE : nums2[partition2];
+            int leftMax2 = partition2 == 0 ? Integer.MIN_VALUE : nums2[partition2 - 1];
+            int rightMin2 = partition2 == n ? Integer.MAX_VALUE : nums2[partition2];
 
-            if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {
-                if ( (m + n) % 2 == 0 ) {
-                    return ((double)Math.min(minRight1, minRight2) + Math.max(maxLeft1, maxLeft2)) / 2;
+            if (leftMax1 <= rightMin2 && leftMax2 <= rightMin1) {
+                // found the position
+                if ( (m + n) % 2 == 1) {
+                    return Math.max(leftMax1, leftMax2);
                 } else {
-                    return Math.max(maxLeft1, maxLeft2);
+                    return (double) (Math.max(leftMax1, leftMax2) + Math.min(rightMin1, rightMin2)) / 2.0;
                 }
-            } else if (maxLeft1 > minRight2) {
+            } else if (leftMax1 > rightMin2) {
                 high = partition1 - 1;
             } else {
                 low = partition1 + 1;
             }
         }
-
         return 0;
-
     }
 }
