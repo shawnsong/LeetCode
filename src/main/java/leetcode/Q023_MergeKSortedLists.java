@@ -1,45 +1,35 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Q023_MergeKSortedLists {
     public ListNode mergeKLists(ListNode[] lists) {
+        ArrayList<ListNode> nodes = new ArrayList<>();
+        for (ListNode list : lists) {
+            if (list != null) {
+                nodes.add(list);
+            }
+        }
 
-        if (lists == null || lists.length == 0) {
-            return null;
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>(Comparator.comparingInt(n -> n.val));
+        for (ListNode node : nodes) {
+            minHeap.add(node);
         }
 
         ListNode fakeHead = new ListNode(0);
         ListNode cur = fakeHead;
-        PriorityQueue<ListNode> heap = new PriorityQueue(new Comparator<ListNode>() {
-            public int compare(ListNode l1, ListNode l2) {
-                if (l1.val == l2.val) {
-                    return 0;
-                } else if (l1.val < l2.val) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            }
-        });
-
-        for (int i = 0; i < lists.length; i++) {
-            if (lists[i] != null) {
-                heap.add(lists[i]);
-            }
-        }
-
-        while (!heap.isEmpty()) {
-            ListNode node = heap.poll();
-            cur.next = node;
+        while (!minHeap.isEmpty()) {
+            ListNode next = minHeap.poll();
+            cur.next = next;
             cur = cur.next;
 
-            if (node.next != null) {
-                heap.add(node.next);
+
+            if (next.next != null) {
+                minHeap.add(next.next);
             }
         }
-
         return fakeHead.next;
     }
 
