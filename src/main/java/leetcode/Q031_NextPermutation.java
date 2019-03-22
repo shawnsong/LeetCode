@@ -15,26 +15,32 @@ package leetcode;
  */
 public class Q031_NextPermutation {
 	public void nextPermutation(int[] nums) {
-		if (nums.length <= 1)
+		if (nums == null  || nums.length <= 1) {
 			return;
+		}
+
 		int i = nums.length - 1;
-		for (; i > 0; i--) {
-			if (nums[i-1] < nums[i]) {
-				int j = nums.length - 1;
-				while (nums[j] <= nums[i - 1])
-					j--;
-				swap(nums, i - 1, j);
+		for(; i > 0; i--) {
+			if (nums[i - 1] < nums[i]) {
 				break;
 			}
 		}
-		
 		int j = nums.length - 1;
-		while (i < j) {
+		if (i > 0) {
+			for(; j > i; j--) {
+				if (nums[j] > nums[i-1]) {
+					break;
+				}
+			}
+			swap(nums, i-1, j);
+		}
+
+		j = nums.length - 1;
+		while (i <= j) {
 			swap(nums, i, j);
 			i++;
 			j--;
 		}
-		return;
 	}
 	
 	private void swap(int[] nums, int i, int j) {
