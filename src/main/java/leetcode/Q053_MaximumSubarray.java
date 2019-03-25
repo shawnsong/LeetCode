@@ -14,25 +14,18 @@ If you have figured out the O(n) solution, try coding another solution using the
  */
 public class Q053_MaximumSubarray {
 	public static void main(String[] ar) {
-		Q053_MaximumSubarray o = new Q053_MaximumSubarray();
-		int[] nums = {-1, -2};
-		int res = o.maxSubArray(nums);
+
 	}
 	public int maxSubArray(int[] nums) {
-		if (nums.length == 0)
+		if (nums == null || nums.length == 0) {
 			return 0;
-		if (nums.length == 1)
-			return nums[0];
-					
-		int[] dp = new int[nums.length];
-		
-		dp[0] = nums[0];
-		int maxSum = nums[0];
-		for (int i = 1; i < nums.length; i++) {
-			dp[i] = Math.max(nums[i], nums[i] + dp[i - 1]);
-			maxSum = Math.max(maxSum, dp[i]);
 		}
-		
-		return maxSum;
+		int max = nums[0];
+		int curSum = nums[0];
+		for (int i = 1; i < nums.length; i++) {
+			curSum = Math.max(nums[i], curSum + nums[i]);
+			max = Math.max(curSum, max);
+		}
+		return max;
 	}
 }

@@ -24,42 +24,30 @@ public class Q047_PermutationsII {
 		Arrays.sort(nums);
 		
 		List<List<Integer>> res = new LinkedList();
-		permute(nums, 0, res);
+		permute(nums, new ArrayList<>(), new boolean[nums.length], res);
 		return res;
 	}
 	
-	private void permute(int[] nums, int startIdx, List<List<Integer>> res) {
-		if (startIdx == nums.length) {
-			List<Integer> list = new LinkedList();
-			for (int i = 0; i < nums.length; i++)
-				list.add(nums[i]);
-			res.add(list);
+	private void permute(int[] nums, ArrayList<Integer> solution, boolean[] used, List<List<Integer>> res) {
+		if (solution.size() == nums.length) {
+			res.add(new LinkedList<>(solution));
 			return;
 		}
-		
-		for (int i = startIdx; i < nums.length; i++) {
-			if (hasDup(nums, startIdx, i))
+
+		for (int i = 0; i < nums.length; i++) {
+			if (used[i]) {
 				continue;
-//			if (i > startIdx && nums[startIdx] == nums[i])
-//				continue;
-			swap(nums, startIdx, i);
-			permute(nums, startIdx + 1, res);
-			swap(nums, startIdx, i);
-			
+			}
+			if (i > 0 && nums[i] == nums[i-1] && !used[i-1]) {
+				continue;
+			}
+
+			used[i] = true;
+			solution.add(nums[i]);
+			permute(nums, solution, used, res);
+			solution.remove(solution.size() - 1);
+			used[i] = false;
 		}
 	}
-	
-	private boolean hasDup(int[] nums, int startIdx, int endIdx) {
-		for (int i = startIdx; i < endIdx; i++) {
-			if (nums[i] == nums[endIdx])
-				return true;
-		}
-		return false;
-	}
-	
-	private void swap(int[] nums, int i, int j) {
-		int tmp = nums[i];
-		nums[i] = nums[j];
-		nums[j] = tmp;
-	}
+
 }

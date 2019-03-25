@@ -11,23 +11,23 @@ package leetcode;
  */
 public class Q041_FirstMissingPositive {
 	public int firstMissingPositive(int[] nums) {
-		
+
 		for (int i = 0; i < nums.length; i++) {
 			int idx = nums[i];
-			
+
 			if (idx < 0 || idx > nums.length || idx - 1 == i)
 				continue;
-			
+
 			if (idx - 1 != nums[i]) {
 				swap(nums, idx, i);
 			}
 		}
-		
+
 		for (int i = 0; i < nums.length; i++) {
 			if (nums[i] - 1 != i)
 				return i + 1;
 		}
-		
+
 		return nums.length + 1;
 	}
 	
