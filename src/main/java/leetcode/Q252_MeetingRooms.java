@@ -25,8 +25,8 @@ import java.util.Comparator;
 
 class Interval {
 
-	int start;
-	int end;
+	public int start;
+	public int end;
 
 	Interval() { start = 0; end = 0; }
 	
