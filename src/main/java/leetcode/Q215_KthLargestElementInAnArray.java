@@ -18,35 +18,36 @@ import java.util.PriorityQueue;
  */
 public class Q215_KthLargestElementInAnArray {
     public int findKthLargest(int[] nums, int k) {
-        if (nums == null || nums.length < k) {
-            return -1;
-        }
+        if (nums == null || nums.length == 0 || k > nums.length) return 0;
 
-        k = nums.length - k;
-        int left = 0, right = nums.length - 1;
+        int startIdx = 0, endIdx = nums.length - 1;
         while (true) {
-            int index = partition(nums, left, right);
-            if (index > k) {
-                right = index - 1;
-            } else if (index < k) {
-                left = index + 1;
+            int index = partition(nums, startIdx, endIdx);
+            if (index > k - 1) {
+                endIdx = index - 1;
+            } else if (index < k - 1) {
+                startIdx = index + 1;
             } else {
                 break;
             }
         }
-        return nums[k];
+        return nums[k -1];
     }
 
-    int partition(int[] nums, int left, int right) {
-        int pivot = nums[left];
-        int i = left + 1, j = right;
+    private int partition(int[] nums, int startIdx, int endIdx) {
+        if (startIdx > endIdx) return startIdx;
+        else if (startIdx == endIdx) return startIdx;
+
+        int pivot = nums[startIdx];
+        int i = startIdx + 1, j = endIdx;
         while (true) {
-            while (i < right && nums[i] < pivot) {
+            while (i < endIdx && nums[i] > pivot) {
                 i++;
             }
-            while (j > left && nums[j] > pivot) {
+            while (j > startIdx && nums[j] < pivot) {
                 j--;
             }
+
             if (i >= j) {
                 break;
             }
@@ -54,7 +55,7 @@ public class Q215_KthLargestElementInAnArray {
             i++;
             j--;
         }
-        swap(nums, left, j);
+        swap(nums, startIdx, j);
         return j;
     }
 
