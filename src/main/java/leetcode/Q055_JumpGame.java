@@ -15,7 +15,7 @@ package leetcode;
 public class Q055_JumpGame {
 	public static void main(String[] arg) {
 		Q055_JumpGame o = new Q055_JumpGame();
-		int[] nums = {0,1};
+		int[] nums = {3,2,1,0,4};
 		System.out.println(o.canJump(nums));
 	}
 	// 2, 0, 0
@@ -23,19 +23,16 @@ public class Q055_JumpGame {
 		if (nums == null || nums.length <= 1)
 			return true;
 		
-		int dist = 0;
-		int distSoFar = 0;
+		int curEnd = nums[0];
+		int nextEnd = nums[0];
 		for (int i = 0; i < nums.length; i++) {
-			distSoFar = Math.max(distSoFar, i + nums[i]);
-			if (i == dist) {
-				if (distSoFar <= dist)
-					return false;
-				else
-					dist = distSoFar;
+			nextEnd = Math.max(nextEnd, i + nums[i]);
+			if (nextEnd >= nums.length - 1) return true;
+			if (i == curEnd) {
+				if (nextEnd == curEnd) return false;
+				curEnd = nextEnd;
 			}
-			if (distSoFar >= nums.length - 1)
-				return true;
 		}
-		return true;
+		return false;
 	}
 }

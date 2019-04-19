@@ -18,18 +18,18 @@ You should return [1, 3, 4].
 public class Q199_BinaryTreeRightSideView {
 	public List<Integer> rightSideView(TreeNode root) {
 		ArrayList<Integer> rightSideView = new ArrayList();
-		dfsGetView(root, rightSideView, 1);
+		traverse(root, 0, rightSideView);
 		return rightSideView;
 	}
 	
-	public void dfsGetView(TreeNode root, ArrayList<Integer> view, int level) {
-		if (root == null)
-			return;
-		
-		if (level > view.size()) {
-			view.add(root.val);
+	private void traverse(TreeNode root, int level, List<Integer> res) {
+		if (root == null) return;
+
+		if (level == res.size()) {
+			res.add(root.val);
 		}
-		dfsGetView(root.right, view, level+1);
-		dfsGetView(root.left, view, level+1);
+
+		traverse(root.right, level + 1, res);
+		traverse(root.left, level + 1, res);
 	}
 }
