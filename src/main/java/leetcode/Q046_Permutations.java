@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +17,25 @@ public class Q046_Permutations {
 	public List<List<Integer>> permute(int[] nums) {
 		List<List<Integer>> res  = new LinkedList();
 		permute(nums, 0, res);
+		return res;
+	}
+
+	public List<List<Integer>> permute1(int[] nums) {
+		List<List<Integer>> res = new LinkedList<>();
+		res.add(Arrays.asList(nums[0]));
+
+		for (int i = 1; i < nums.length; i++) {
+			List<List<Integer>> next = new LinkedList<>();
+			for (int j = 0; j < res.size(); j++) {
+				List<Integer> list = res.get(j);
+				for (int k = 0; k <= list.size(); k++) {
+					List<Integer> newList = new LinkedList<>(list);
+					newList.add(k, nums[i]);
+					next.add(newList);
+				}
+			}
+			res = next;
+		}
 		return res;
 	}
 	
