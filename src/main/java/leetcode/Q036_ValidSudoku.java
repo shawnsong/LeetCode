@@ -6,22 +6,18 @@ public class Q036_ValidSudoku {
         if (board == null || board.length != 9 || board[0].length != 9) {
             return;
         }
-
         solve(board);
     }
 
     private boolean solve(char[][] board) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (board[i][j] != '.') {
-                    continue;
-                }
+                if (board[i][j] != '.') continue;
                 for (char num = '1'; num <= '9'; num++) {
-                    if (canPut(board, num, i, j)) {
+                    if (canPut(board, i, j, num)) {
                         board[i][j] = num;
-                        if (solve(board)) {
-                            return true;
-                        }
+                        boolean solved = solve(board);
+                        if (solved) return true;
                         board[i][j] = '.';
                     }
                 }
@@ -31,20 +27,16 @@ public class Q036_ValidSudoku {
         return true;
     }
 
-    private boolean canPut(char[][] board, char num, int rowIdx, int colIdx) {
-        // check row
+    private boolean canPut(char[][] board, int row, int col, char num) {
+
         for (int i = 0; i < 9; i++) {
-            if (board[rowIdx][i] == num || board[i][colIdx] == num) {
+            if (board[row][i] == num || board[i][col] == num)
                 return false;
-            }
         }
-        // check square
-        int rowStartIdx = rowIdx / 3 * 3, colStartIdx = colIdx / 3 * 3;
-        for (int i = rowStartIdx; i < rowStartIdx + 3; i++) {
-            for (int j = colStartIdx; j < colStartIdx + 3; j++) {
-                if (board[i][j] == num) {
-                    return false;
-                }
+        int rowIdx = row / 3 * 3, colIdx = col / 3 * 3;
+        for (int i = rowIdx; i < rowIdx + 3; i++) {
+            for (int j = colIdx; j < colIdx + 3; j++) {
+                if (board[i][j] == num) return false;
             }
         }
         return true;
