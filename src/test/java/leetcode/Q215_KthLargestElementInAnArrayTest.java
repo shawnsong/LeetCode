@@ -9,10 +9,10 @@ public class Q215_KthLargestElementInAnArrayTest {
     @Test
     public void findKthLargest() {
         int[] nums = new int[]{3, 2, 1,  5, 6, 4};
-//        nums = new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6};
-//        System.out.println(underTest.findKthLargest(nums, 2));
-        quickSort(nums, 0, nums.length - 1);
-        System.out.println(nums[nums.length - 2]);
+        nums = new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6};
+        System.out.println(underTest.findKthLargest(nums, 4));
+//        quickSort(nums, 0, nums.length - 1);
+//        System.out.println(nums[nums.length - 2]);
     }
 
     private void quickSort(int[] arr, int low, int high) {

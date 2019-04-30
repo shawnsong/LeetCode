@@ -13,6 +13,7 @@ class Q003_LongestSubstringWithoutRepeatingCharactersTest {
         assertEquals(underTest.lengthOfLongestSubstring("a"), 1);
         assertEquals(underTest.lengthOfLongestSubstring("abba"), 2);
         assertEquals(underTest.lengthOfLongestSubstring("pwwkew"), 3);
+        assertEquals(underTest.lengthOfLongestSubstring("pwwkewp"), 4);
     }
 
     @Test

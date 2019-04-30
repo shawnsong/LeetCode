@@ -15,10 +15,20 @@ public class Q024_SwapNodesInPairs {
 		if (head == null || head.next == null)
 			return head;
 		
-		ListNode n = head.next;
-		head.next = swapPairs(head.next.next);
-		n.next = head;
+		ListNode fakeHead = new ListNode(0);
 
-		return n;
+		ListNode prev = fakeHead;
+		prev.next = head;
+		while (prev.next != null && prev.next.next != null) {
+			ListNode first = prev.next;
+			ListNode second = prev.next.next;
+			ListNode next = second.next;
+
+			prev.next = second;
+			second.next = first;
+			first.next = next;
+			prev = first;
+		}
+		return fakeHead.next;
 	}
 }

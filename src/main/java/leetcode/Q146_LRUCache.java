@@ -2,6 +2,7 @@ package leetcode;
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Your LRUCache object will be instantiated and called as such:
@@ -11,44 +12,44 @@ import java.util.HashMap;
  */
 public class Q146_LRUCache {
 
-    private int size;
-    private int capacity;
-    private HashMap<Integer, CacheEntry> map;
-    private CacheEntry head, tail;
+    int size;
+    int capacity;
+    CacheEntry head;
+    CacheEntry tail;
 
-
+    Map<Integer, CacheEntry> map;
     public Q146_LRUCache(int capacity) {
-        this.capacity = capacity;
         size = 0;
-        map = new HashMap();
+        this.capacity = capacity;
         head = new CacheEntry(0, 0);
         tail = new CacheEntry(0, 0);
         head.next = tail;
         tail.prev = head;
+        map = new HashMap<>();
     }
 
     public int get(int key) {
-        if (!map.containsKey(key)) {
-            return -1;
-        }
-        CacheEntry entry = map.get(key);
-        moveToHead(entry);
-        return entry.value;
+        CacheEntry res = map.get(key);
+        if (res == null)
+            return 0;
+
+        moveToHead(res);
+        return res.value;
     }
 
     public void put(int key, int value) {
-        if (map.containsKey(key)) {
-            map.get(key).value = value;
-            return;
-        }
-
-        CacheEntry entry = new CacheEntry(key, value);
-        map.put(key, entry);
-        addEntry(entry);
-        size++;
-        if (size > capacity) {
-            removeTail();
-            size--;
+        CacheEntry entry = map.get(key);
+        if (entry != null) {
+            entry.value = value;
+            moveToHead(entry);
+        } else {
+            entry = new CacheEntry(key, value);
+            addEntry(entry);
+            size++;
+            if (size > capacity) {
+                removeFromTail();
+            }
+            map.put(key, entry);
         }
     }
 
@@ -57,37 +58,39 @@ public class Q146_LRUCache {
         addEntry(entry);
     }
 
-    private void removeTail() {
-        CacheEntry entryToRemove = tail.prev;
-        removeEntry(entryToRemove);
-        map.remove(entryToRemove.key);
-    }
-
     private void removeEntry(CacheEntry entry) {
         CacheEntry prev = entry.prev;
         CacheEntry next = entry.next;
-
         prev.next = next;
         next.prev = prev;
     }
 
     private void addEntry(CacheEntry entry) {
-        entry.prev = head;
-        entry.next = head.next;
+        CacheEntry oldHead = head.next;
+        entry.next = oldHead;
+        oldHead.prev = entry;
 
-        head.next.prev = entry;
+        entry.prev = head;
         head.next = entry;
     }
-}
-class CacheEntry {
 
-    CacheEntry(int key, int val) {
-        this.key = key;
-        this.value = val;
+    private void removeFromTail() {
+        CacheEntry toRemove = tail.prev;
+
+        toRemove.prev.next = tail;
+        tail.prev = toRemove.prev;
     }
-    int key;
-    int value;
-    CacheEntry next;
-    CacheEntry prev;
+
+    class CacheEntry {
+        int key;
+        int value;
+        CacheEntry prev;
+        CacheEntry next;
+
+        public CacheEntry(int key, int val) {
+            this.key = key;
+            this.value = val;
+        }
+    }
 }
 
