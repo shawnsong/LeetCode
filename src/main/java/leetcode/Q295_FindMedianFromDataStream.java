@@ -23,22 +23,32 @@ public class Q295_FindMedianFromDataStream {
 
     /** initialize your data structure here. */
     public Q295_FindMedianFromDataStream() {
-        maxHeap = new PriorityQueue<>();
+        maxHeap = new PriorityQueue<>((a, b) -> {
+            if (a > b) return -1;
+            else if (a < b) return 1;
+            else return 0;
+        });
         minHeap = new PriorityQueue<>();
     }
 
     public void addNum(int num) {
-        maxHeap.add((long)num);
-        minHeap.add(-maxHeap.poll());
-        if (minHeap.size() > maxHeap.size()) {
-            maxHeap.add(-minHeap.poll());
+        if (maxHeap.isEmpty() || num < maxHeap.size()) {
+            maxHeap.add((long)num);
+        } else {
+            minHeap.add((long)num);
+        }
+        if (maxHeap.size() < minHeap.size()) {
+            maxHeap.add(minHeap.poll());
+        } else if (maxHeap.size() - minHeap.size() > 1) {
+            minHeap.add(maxHeap.poll());
         }
     }
 
     public double findMedian() {
-        if ( (maxHeap.size() + minHeap.size()) % 2 == 0) {
-            return (double)(maxHeap.peek() - minHeap.peek()) / 2.0;
+        if ((maxHeap.size() + minHeap.size()) % 2 == 1) {
+            return (double)maxHeap.peek();
+        } else {
+            return (double) (maxHeap.peek() + minHeap.peek()) / 2.0;
         }
-        return maxHeap.peek();
     }
 }
