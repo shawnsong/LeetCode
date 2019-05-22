@@ -2,6 +2,7 @@ package leetcode;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Comparator;
 
 /* 
 Given a string which contains only lowercase letters, remove duplicate letters so that every 
@@ -20,6 +21,43 @@ Note: we can only 'REMOVE' letters so the answer of second example is 'acdb' not
 */
 
 public class Q316_RemoveDuplicateLetters {
+
+    public String removeDuplicateLetters1(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+
+        int[] charIdx = new int[26];
+        Arrays.fill(charIdx, s.length());
+
+        for (int i = 0; i < s.length(); i++) {
+            charIdx[s.charAt(i) - 'a'] = i;
+        }
+
+        return remove(s, charIdx, 0);
+    }
+
+    private String remove(String s, int[] charIdx, int startIdx) {
+        // get min index
+        int minLastPos = s.length();
+        for (int idx : charIdx) {
+            minLastPos = Math.min(idx, minLastPos);
+        }
+        if (minLastPos == s.length()) {
+            return "";
+        }
+
+        char minChar = 'z' + 1;
+        int minCharIdx = s.length();
+        for (int i = startIdx; i <= minLastPos; i++) {
+            if (minChar > s.charAt(i) && charIdx[s.charAt(i)-'a'] != s.length()) {
+                minChar = s.charAt(i);
+                minCharIdx = i;
+            }
+        }
+        charIdx[minChar - 'a'] = s.length();
+        return minChar + remove(s, charIdx, minCharIdx+1);
+    }
 
 	// using stack
 	public String removeDuplicateLetter(String s) {

@@ -4,7 +4,7 @@ public class Q306_AdditiveNumber {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String num = "101";
+		String num = "123";
 		
 		Q306_AdditiveNumber obj = new Q306_AdditiveNumber();
 		
@@ -15,36 +15,33 @@ public class Q306_AdditiveNumber {
 	public boolean isAdditiveNumber(String num) {
 		if (num.length() < 3)
 			return false;
-		for (int i = 0; i < num.length() - 2; i++) {
-			boolean res = processAdd(num, 0, i);
-			if (res == true)
-				return true;
-		}
-		return false;
-	}
-	
-	public boolean processAdd(String num, int firstStartIdx, int firstEndIdx) {
-		if (firstEndIdx >= num.length())
-			return false;
-		String num1 = num.substring(firstStartIdx, firstEndIdx+1);
-		for (int i = firstEndIdx + 1; i < num.length() - 1; i++) {
-			String num2 = num.substring(firstEndIdx + 1, i + 1);
-			if (num2.length() > 1 && num2.charAt(0) == '0')
-				return false;
-			
-			String res = add(num1, num2);
-			String remain = num.substring(i + 1);
-			if (remain.equals(res))
-				return true;
-			else if (remain.indexOf(res) != -1) { 
-				boolean canAdd = processAdd(num, firstEndIdx + 1, i);
-				if (canAdd == true)
-					return true;
-			}
-		}
-		
-		return false;
-	}
+        for (int i = 1; i <= num.length() / 2; i++) {
+            if (num.charAt(0) == '0' && i > 1) {
+                return false;
+            }
+            String num1 = num.substring(0, i);
+            for (int j = 1; i + j < num.length(); j++) {
+                if (num.charAt(i) == '0' && j > 1) {
+                    break;
+                }
+                String num2 = num.substring(i, i+j);
+                if (isValid(num1, num2, i + j, num)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isValid(String num1, String num2, int startIdx, String num) {
+	    if (startIdx == num.length()) {
+	        return true;
+        }
+        long n1 = Long.parseLong(num1);
+        long n2 = Long.parseLong(num2);
+        String sum = String.valueOf(n2 + n1);
+        return num.startsWith(sum, startIdx) && isValid(num2, sum, startIdx + sum.length(), num);
+    }
 	
 	public String add(String num1, String num2) {
 		int carry = 0;
