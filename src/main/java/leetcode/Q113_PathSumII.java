@@ -33,21 +33,17 @@ public class Q113_PathSumII {
 	}
 	
 	private void sum(TreeNode root, int sum, List<List<Integer>> res, ArrayList<Integer> path) {
-		if (root == null) {
-			return;
-		}
-		if (root.left == null && root.right == null) {
-			if (sum == root.val) {
-				List<Integer> list = new LinkedList();
-				list.addAll(path);
-				list.add(root.val);
-				res.add(list);
-			}
+		if (root == null) return;
+
+		if (sum == root.val && root.left == null && root.right == null) {
+			path.add(root.val);
+			res.add(new LinkedList<>(path));
+			path.remove(path.size() - 1);
 			return;
 		}
 		path.add(root.val);
 		sum(root.left, sum - root.val, res, path);
 		sum(root.right, sum - root.val, res, path);
-		path.remove(path.size() - 1);
+		path.remove(path.size() -1);
 	}
 }

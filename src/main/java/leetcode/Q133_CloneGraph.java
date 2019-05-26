@@ -2,9 +2,12 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 /*
  * Question: Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.
@@ -51,28 +54,6 @@ class UndirectedGraphNode {
 
 public class Q133_CloneGraph {
 
-	// driver method to test
-	public static void main(String[] args) {
-		
-		Q133_CloneGraph obj = new Q133_CloneGraph();
-		UndirectedGraphNode root = new UndirectedGraphNode(0);
-		UndirectedGraphNode child1 = new UndirectedGraphNode(1); 
-		root.neighbors.add(child1);
-		root.neighbors.add(new UndirectedGraphNode(2));
-		root.neighbors.add(new UndirectedGraphNode(3));
-		
-		child1.neighbors.add(new UndirectedGraphNode(4));
-		child1.neighbors.add(new UndirectedGraphNode(5));
-		
-		// add a loop in the graph
-		child1.neighbors.add(child1);
-		
-		UndirectedGraphNode clone1 = obj.cloneGraphDfs(root, new HashMap());
-		UndirectedGraphNode clone2 = obj.cloneGraphBfs(root);
-
-	}
-
-	
 	// bfs
 	public UndirectedGraphNode cloneGraphBfs(UndirectedGraphNode node) {
 		if (node == null)
@@ -109,6 +90,38 @@ public class Q133_CloneGraph {
 			}
 		}
 		return root;
+	}
+
+	public UndirectedGraphNode bfs(UndirectedGraphNode node) {
+		if (node == null) return null;
+
+		Queue<UndirectedGraphNode> queue = new LinkedList<>();
+		queue.add(node);
+		Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+
+		while (!queue.isEmpty()) {
+			UndirectedGraphNode root = queue.poll();
+
+			UndirectedGraphNode newRoot;
+			if (map.containsKey(node)) {
+				newRoot = map.get(root);
+			} else {
+				newRoot = new UndirectedGraphNode(root.label);
+			}
+			map.put(root, newRoot);
+
+			for (UndirectedGraphNode nei : root.neighbors) {
+				if (map.containsKey(nei)) {
+					newRoot.neighbors.add(map.get(nei));
+				} else {
+					UndirectedGraphNode newNei = new UndirectedGraphNode(nei.label);
+					map.put(nei, newNei);
+					queue.add(nei);
+					newRoot.neighbors.add(newNei);
+				}
+			}
+		}
+		return map.get(node);
 	}
 	
 	

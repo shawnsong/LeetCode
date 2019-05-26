@@ -29,16 +29,14 @@ public class Q039_CombinationSum {
 		return res;
 	}
 
-	private void combine(int[] nums, int target, int startIdx, List<Integer> solution, List<List<Integer>> res) {
+	private void combine(int[] nums, int target, int startIdx, ArrayList<Integer> solution, List<List<Integer>> res) {
 		if (target == 0 && solution.size() > 0) {
 			res.add(new LinkedList<>(solution));
 			return;
 		}
+		if (target < nums[startIdx]) return;
 
 		for (int i = startIdx; i < nums.length; i++) {
-			if (target < nums[i]) {
-				break;
-			}
 			solution.add(nums[i]);
 			combine(nums, target - nums[i], i, solution, res);
 			solution.remove(solution.size() - 1);
