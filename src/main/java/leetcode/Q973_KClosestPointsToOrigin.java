@@ -26,22 +26,17 @@ public class Q973_KClosestPointsToOrigin {
 
     private int partition(int[][] points, int startIdx, int endIdx) {
         int[] pivot = points[startIdx];
-        int left = startIdx + 1, right = endIdx;
-        while (left <= right) {
-            while (left < endIdx && compare(points[left], pivot) <= 0) {
-                left++;
+        int pos = startIdx;
+        for (int i = startIdx + 1; i <= endIdx; i++) {
+            if (distanceSquare(points[i]) <= distanceSquare(pivot)) {
+                pos++;
+                if (pos != i) {
+                    swap(points, i, pos);
+                }
             }
-            while (right > startIdx && compare(points[right], pivot) >= 0) {
-                right--;
-            }
-            if (left >= right) break;
-
-            swap(points, left, right);
-            left++;
-            right--;
         }
-        swap(points, startIdx, right);
-        return right;
+        swap(points, startIdx, pos);
+        return pos;
     }
 
     void swap(int[][] arr, int i, int j) {
