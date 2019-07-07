@@ -14,5 +14,7 @@ class Q809_ExpressiveWordsTest {
         assertFalse(test.isValid("hello", "helo"));
         assertTrue(test.isValid("heeellooo", "hello"));
         assertFalse(test.isValid("heeello", "he"));
+
+        assertFalse(test.isValid("heeellooo", "axxxrrzzz"));
     }
 }

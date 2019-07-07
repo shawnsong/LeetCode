@@ -27,6 +27,7 @@ public class Q809_ExpressiveWords {
         int sEnd = 0;
         int wEnd = 0;
         while (sEnd < stretch.length() && wEnd < word.length()) {
+            if (stretch.charAt(sStart) != word.charAt(wStart)) return false;
             while (sEnd < stretch.length() && stretch.charAt(sEnd) == stretch.charAt((sStart))) {
                 sEnd++;
             }
