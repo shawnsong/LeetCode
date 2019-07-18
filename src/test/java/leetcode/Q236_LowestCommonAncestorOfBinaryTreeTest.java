@@ -19,5 +19,10 @@ class Q236_LowestCommonAncestorOfBinaryTreeTest {
         root.right.right = new TreeNode(7);
 
         assertEquals(root.left, test.lowestCommonAncestor(root, root.left, root.left.right));
+
+        assertNull(test.lowestCommonAncestor(root, root.left.right, new TreeNode(1)));
+
+        assertEquals(root.left, test.lowestCommonAncestor(root, root.left.left, root.left.right));
+        assertEquals(root, test.lowestCommonAncestor(root, root.left.left, root.right.right));
     }
 }
