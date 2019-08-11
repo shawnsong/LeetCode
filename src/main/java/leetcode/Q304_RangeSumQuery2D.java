@@ -19,56 +19,24 @@ package leetcode;
  */
 public class Q304_RangeSumQuery2D {
 
-	int[][] dp;
+    int[][] sum;
 
-	public Q304_RangeSumQuery2D(int[][] matrix) {
-		if (matrix == null || matrix.length == 0)
-			return;
+    public Q304_RangeSumQuery2D(int[][] matrix) {
 
-		int h = matrix.length;
-		int w = matrix[0].length;
+        int m = matrix.length, n = matrix[0].length;
+        if (m == 0 || n == 0) {
+            sum = new int[0][0];
+            return;
+        }
+        sum = new int[m + 1][n + 1];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                sum[i+1][j+1] = sum[i] [j+1] + sum[i+1][j] + - sum[i][j] + matrix[i][j];
+            }
+        }
+    }
 
-		dp = new int[h][w];
-
-		int sum = 0;
-		for (int i = 0; i < w; i++) {
-			sum += matrix[0][i];
-			dp[0][i] = sum;
-		}
-
-		sum = 0;
-		for (int i = 0; i < h; i++) {
-			sum += matrix[i][0];
-			dp[i][0] = sum;
-		}
-
-		for (int i = 1; i < h; i++) {
-			for (int j = 1; j < w; j++) {
-				dp[i][j] = dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1]
-						+ matrix[i][j];
-			}
-		}
-	}
-
-	public int sumRegion(int row1, int col1, int row2, int col2) {
-		int ret = dp[row2][col2];
-
-		int c1 = col1 < col2 ? col1 : col2;
-		int c2 = col1 < col2 ? col2 : col1;
-
-		int r1 = row1 < row2 ? row1 : row2;
-		int r2 = row1 < row2 ? row2 : row1;
-
-		if (r1 != 0) {
-			ret -= dp[r1 - 1][c2];
-		}
-		if (c1 != 0) {
-			ret -= dp[r2][c1 - 1];
-		}
-
-		if (r1 != 0 && c1 != 0)
-			ret += dp[r1 - 1][c1 - 1];
-
-		return ret;
-	}
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+        return sum[row2 + 1][col2 + 1] - sum[row2 +1][col1] - sum[row1][col2 + 1] + sum[row1][col1];
+    }
 }
