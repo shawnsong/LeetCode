@@ -12,7 +12,7 @@ public class Q743_NetworkDelayTime {
         }
 
 
-        PriorityQueue<int[]> pq = new PriorityQueue<>((i1, i2) -> i1[1] - i2[1]);
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(i -> i[1]));
         pq.add(new int[] {k, 0});
         boolean[] visited = new boolean[n + 1];
         int count = 0;
@@ -35,6 +35,6 @@ public class Q743_NetworkDelayTime {
                 pq.add(new int[] {next[0], curCost + next[1]});
             }
         }
-        return cost == Integer.MAX_VALUE ? -1 : cost;
+        return -1;
     }
 }
