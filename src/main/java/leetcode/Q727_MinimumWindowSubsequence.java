@@ -34,4 +34,47 @@ public class Q727_MinimumWindowSubsequence {
         }
         return len == s.length() + 1 ? "" : s.substring(start, start + len + 1);
     }
+
+    public String minWindow2(String s, String t) {
+        if (s == t) {
+            return s;
+        }
+        if (s == null || t == null || s.length() < t.length()) {
+            return "";
+        }
+        int right = 0;
+        String res = "";
+        while (right < s.length()) {
+            int tPos = 0;
+            while (right < s.length()) {
+                if (t.charAt(tPos) == s.charAt(right)) {
+                    tPos++;
+                    if (tPos == t.length()) {
+                        break;
+                    }
+                }
+                right++;
+            }
+            if (right == s.length() && tPos < t.length()) {
+                return res;
+            }
+            int left = right;
+            tPos = t.length() - 1;
+            while (left >= 0) {
+                if (s.charAt(left) == t.charAt(tPos)) {
+                    tPos--;
+                }
+                if (tPos < 0) {
+                    break;
+                }
+                left--;
+            }
+            int len = right - left + 1;
+            if (res.length() == 0 || len < res.length()) {
+                res = s.substring(left, right + 1);
+            }
+            right = left + 1;
+        }
+        return res;
+    }
 }
