@@ -8,25 +8,25 @@ public class Q802_FindEventualSafeStates {
         List<Integer> res = new LinkedList<>();
         int[] color = new int[graph.length];
         for (int i = 0; i < graph.length; i++) {
-            if (dfs(graph, i, color)) {
+            if (isSafe(graph, i, color) == 1) {
                 res.add(i);
             }
         }
         return res;
     }
 
-    boolean dfs(int[][] graph, int node, int[] color) {
+    int isSafe(int[][] graph, int node, int[] color) {
         if (color[node] != 0) {
-            return color[node] == 1;
+            return color[node];
         }
         color[node] = 2;
         int[] nexts = graph[node];
         for (int next : nexts) {
-            if (!dfs(graph, next, color)) {
-                return false;
+            if (isSafe(graph, next, color) == 2) {
+                return 2;
             }
         }
         color[node] = 1;
-        return true;
+        return 1;
     }
 }
