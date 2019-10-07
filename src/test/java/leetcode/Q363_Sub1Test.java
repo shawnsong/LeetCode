@@ -11,5 +11,7 @@ class Q363_Sub1Test {
     void findMaxSum() {
         int[] nums = {1, -1, -2, 2, -1, 3};
         assertEquals(4, test.findMaxSum(nums));
+        nums = new int[] {-2, 9, -3, 4};
+        assertEquals(10, test.findMaxSum(nums));
     }
 }

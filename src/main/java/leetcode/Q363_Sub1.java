@@ -5,11 +5,12 @@ package leetcode;
  */
 public class Q363_Sub1 {
     public int findMaxSum(int[] nums) {
-        int cur = nums[0];
-        int max = cur;
-        for (int num : nums) {
-            cur = Math.max(num, num + cur);
-            max = Math.max(max, cur);
+        int maxSoFar = nums[0];
+        int max = maxSoFar;
+        for (int i = 1; i < nums.length; i++) {
+            int cur = Math.max(maxSoFar + nums[i], nums[i]);
+            max = Math.max(cur, max);
+            maxSoFar = cur;
         }
         return max;
     }
