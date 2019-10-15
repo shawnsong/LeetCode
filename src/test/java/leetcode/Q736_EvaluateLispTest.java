@@ -54,5 +54,8 @@ class Q736_EvaluateLispTest {
 
         exp = "x 2 (mult x (let x 3 y 4 (add x y)))";
         assertEquals(Arrays.asList("x", "2", "(mult x (let x 3 y 4 (add x y)))"), test.parse(exp));
+
+        exp = "(let x 2 (add (let x 3 (let x 4 x)) x))";
+        test.parse(exp);
     }
 }

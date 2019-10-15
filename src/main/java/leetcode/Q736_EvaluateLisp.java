@@ -1,9 +1,6 @@
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Q736_EvaluateLisp {
     public int evaluate(String expression) {
@@ -30,22 +27,39 @@ public class Q736_EvaluateLisp {
             return eval(tokens.get(tokens.size() - 1), map);
         }
     }
-    List<String> parse(String str) {
-        // seperate the values between two parentheses
-        List<String> res = new ArrayList<>();
-        int par = 0;
-        StringBuilder sb = new StringBuilder();
-        for (char c: str.toCharArray()) {
-            if (c == '(') par++;
-            if (c == ')') par--;
-            if (par == 0 && c == ' ') {
-                res.add(new String(sb));
-                sb = new StringBuilder();
-            } else {
-                sb.append(c);
+    List<String> parse(String expr) {
+        List<String> res = new LinkedList<>();
+        int start = 0;
+        int left = 0;
+        for (int i = 0; i < expr.length(); i++) {
+            char c = expr.charAt(i);
+            if (c == '(') {
+                while (i < expr.length()) {
+                    if (expr.charAt(i) == '(') {
+                        left++;
+                    } else if (expr.charAt(i) == ')') {
+                        left--;
+                    }
+                    if (left == 0) {
+                        break;
+                    }
+                    i++;
+                }
+                res.add(expr.substring(start, i + 1));
+                start = i + 1;
+            } else if (c == ' ') {
+                if (start != i) {
+                    res.add(expr.substring(start, i));
+                }
+                start = i + 1;
             }
         }
-        if (sb.length() > 0) res.add(new String(sb));
+        if (start < expr.length()) {
+            res.add(expr.substring(start));
+            if (expr.substring(start).length() == 0) {
+                System.out.println(expr);
+            }
+        }
         return res;
     }
 }
