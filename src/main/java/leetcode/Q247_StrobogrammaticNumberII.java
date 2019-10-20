@@ -18,28 +18,26 @@ public class Q247_StrobogrammaticNumberII {
 
 
     List<String> findStrobogrammatic(int n) {
-        List<String> res = find(n, n, "");
-        return res;
+        return find(n, n);
     }
 
-    List<String> find(int n, int m, String str) {
-        if (n == 0) {
+    List<String> find(int m, int n) {
+        if (m == 0) {
             return Arrays.asList("");
         }
-        if (n == 1) {
+        if (m == 1) {
             return Arrays.asList("0", "1", "8");
         }
-
-        List<String> sublist = find(n - 2, m, str);
+        List<String> list = find(n - 2, n);
         List<String> res = new LinkedList<>();
-        for (String sub : sublist) {
+        for (String num : list) {
             if (n != m) {
-                res.add("0" + sub + "0");
+                res.add("0" + num + "0");
             }
-            res.add("1" + sub + "1");
-            res.add("6" + sub + "9");
-            res.add("8" + sub + "8");
-            res.add("9" + sub + "6");
+            res.add("1" + num + "1");
+            res.add("6" + num + "9");
+            res.add("9" + num + "6");
+            res.add("8" + num + "8");
         }
         return res;
     }

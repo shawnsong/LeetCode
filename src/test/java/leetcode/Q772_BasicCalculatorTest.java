@@ -15,6 +15,8 @@ class Q772_BasicCalculatorTest {
 
         assertEquals(0, test.calculate("1 + (2-1*3)"));
 
-        assertEquals(3, test.calculate("(7) - (0) + (4)"));
+        assertEquals(11, test.calculate("(7) - (0) + (4)"));
+
+        assertEquals(0, test.calculate("-1+4*3/3/3"));
     }
 }

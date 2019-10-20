@@ -1,35 +1,40 @@
 package leetcode;
 
-public class Q158_ReadNCharactersGivenRead4II implements Read4 {
-    char[] buff = new char[4];
-    int pos = 0;
-    int size = 0;
+import java.util.Random;
+
+/**
+ * Given a file and assume that you can only read the file using a given method read4, implement a method read to read n characters.
+ * Your method read may be called multiple times.
+ */
+public class Q158_ReadNCharactersGivenRead4II {
+
+    private char[] buff;
+    private int buffCount;
+    private int buffPos;
 
     public int read(char[] buf, int n) {
-        int count = 0;
-        while (count < n) {
-            if (pos == size) {
-                pos = 0;
-                size = read4(buff);
-                if (size == 0) {
+        int pos = 0;
+        while (pos < n) {
+            if (buffPos == 0) {
+                buffCount = read4(buff);
+                if (buffCount == 0) {
                     break;
                 }
             }
-            while (count < n && pos < size) {
-                buf[count] = buff[pos];
-                count++;
+
+            while (pos < n && buffPos < buffCount) {
+                buf[pos] = buff[buffPos];
                 pos++;
+                buffPos++;
+            }
+            if (buffPos == buffCount) {
+                buffPos = 0;
             }
         }
-        return count;
+        return pos;
     }
 
-    @Override
-    public int read4(char[] buff) {
-        return 0;
+    private int read4(char[] buf) {
+        return new Random().nextInt(4);
     }
-}
-
-interface Read4 {
-    int read4(char[] buff);
 }
