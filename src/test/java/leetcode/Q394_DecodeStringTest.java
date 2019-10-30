@@ -9,6 +9,7 @@ class Q394_DecodeStringTest {
 
     @Test
     void decodeString() {
+        assertEquals("accaccacc", test.decodeString("3[a2[c]]"));
         assertEquals("aaa", test.decodeString("3[a]"));
         assertEquals("aaabcbc", test.decodeString("3[a]2[bc]"));
     }

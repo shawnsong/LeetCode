@@ -3,42 +3,42 @@ package leetcode;
 public class Q394_DecodeString {
     public String decodeString(String s) {
         if (s == null || s.length() == 0) return s;
+
         StringBuilder sb = new StringBuilder();
         int num = 0;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (Character.isDigit(c)) {
-                int start = i;
                 while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                    num = num * 10 + (s.charAt(i) - '0');
                     i++;
                 }
-                num = Integer.parseInt(s.substring(start, i));
                 i--;
             } else if (c == '[') {
-                // find ]
-                int leftCount = 0;
-                int start = i + 1;
+                int start = i;
+                int left = 0;
                 while (i < s.length()) {
                     if (s.charAt(i) == '[') {
-                        leftCount++;
-                    } else if (s.charAt(i) == ']') {
-                        leftCount--;
+                        left++;
                     }
-                    if (leftCount == 0) {
+                    if (s.charAt(i) == ']') {
+                        left--;
+                    }
+                    if (left == 0) {
                         break;
                     }
                     i++;
                 }
-                String sub = decodeString(s.substring(start, i));
+                String sub = s.substring(start + 1, i);
+                String subRes = decodeString(sub);
                 for (int j = 0; j < num; j++) {
-                    sb.append(sub);
+                    sb.append(subRes);
                 }
                 num = 0;
             } else {
                 sb.append(c);
             }
         }
-
         return sb.toString();
     }
 }
