@@ -10,7 +10,7 @@ public class Q489_RobotRoomCleaner {
     }
 
     void backtrack(Robot robot, Set<String> visited, int rowIdx, int colIdx, int dir) {
-        if (visited.add(rowIdx + "-" + colIdx) == false) return;
+        if (!visited.add(rowIdx + "-" + colIdx)) return;
 
         robot.clean();
         for (int i = 0; i < 4; i++) {
