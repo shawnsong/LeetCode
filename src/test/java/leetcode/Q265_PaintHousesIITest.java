@@ -11,5 +11,8 @@ class Q265_PaintHousesIITest {
     void test() {
         assertEquals(5, test.minCostII(new int[][]{{1,5,3}, {2,9,4}}));
         assertEquals(8, test.minCostII(new int[][]{{8}}));
+
+        assertEquals(5, test.minCostII2(new int[][]{{1,5,3}, {2,9,4}}));
+        assertEquals(8, test.minCostII2(new int[][]{{8}}));
     }
 }
