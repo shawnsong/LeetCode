@@ -38,4 +38,30 @@ public class Q788 {
         }
         return valid;
     }
+
+    public int rotate(int n) {
+        int[] dp = new int[n + 1];
+        int count = 0;
+        // i has to start from 0
+        for (int i = 0; i <= n; i++) {
+            if (i < 10) {
+                if (i == 2 || i == 5 || i == 6 || i == 9) {
+                    dp[i] = 2;
+                    count++;
+                } else if (i == 0 || i == 1 || i == 8) {
+                    dp[i] = 1;
+                }
+            } else {
+                int a = i % 10;
+                int b = i / 10;
+                if (dp[a] == 1 && dp[b] == 1) {
+                    dp[i] = 1;
+                } else if (dp[a] >= 1 && dp[b] >= 1) {
+                    dp[i] = 2;
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 }
