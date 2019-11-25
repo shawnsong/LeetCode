@@ -19,7 +19,7 @@ public class Q321_Sub1 {
         Stack<Integer> stack = new Stack<>();
         int n = nums.length;
         for (int i = 0;  i< nums.length; i++) {
-            while (n - i + stack.size() > k && !stack.isEmpty() && nums[i] > stack.peek()) {
+            while (!stack.isEmpty() && stack.peek() < nums[i] && stack.size() + n - i > k) {
                 stack.pop();
             }
             if (stack.size() < k) {
