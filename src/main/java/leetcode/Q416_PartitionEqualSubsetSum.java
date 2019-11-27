@@ -1,5 +1,8 @@
 package leetcode;
 
+/**
+ * knapsack
+ */
 public class Q416_PartitionEqualSubsetSum {
     public boolean canPartition(int[] nums) {
         int sum = 0;
