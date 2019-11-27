@@ -1,5 +1,6 @@
-package leetcode;
+package leetcode.knapsack;
 
+import leetcode.knapsack.Knapsack_Sub2;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

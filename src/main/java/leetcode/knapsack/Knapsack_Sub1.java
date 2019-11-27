@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.knapsack;
 
 /**
  * Lintcode 92: find the max sum of elements from an array that the sum is no larger than m

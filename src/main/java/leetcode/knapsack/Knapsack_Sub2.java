@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.knapsack;
 
 /**
  * n items of different weights. find all possible ways to fill a bag of size k

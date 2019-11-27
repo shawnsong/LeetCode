@@ -1,8 +1,7 @@
-package leetcode;
+package leetcode.knapsack;
 
+import leetcode.knapsack.Knapsack;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class KnapsackTest {
     Knapsack test = new Knapsack();

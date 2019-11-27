@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.knapsack;
 
 public class Knapsack {
 
