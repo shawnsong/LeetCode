@@ -1,7 +1,7 @@
 package leetcode.knapsack;
 
 /**
- * n items of different weights. find all possible ways to fill a bag of size k
+ * n items of different weights. Find all possible ways to fill a bag of size k. Each item can be used once.
  */
 public class Knapsack_Sub2 {
     public int numWays(int[] weights, int k) {

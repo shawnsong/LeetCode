@@ -2,7 +2,7 @@ package leetcode.knapsack;
 
 /**
  * Lintcode 92: find the max sum of elements from an array that the sum is no larger than m
- * i.e. find how much of the weight you can put in a knapsack of size m
+ * i.e. find the maximum weight you can put in a knapsack of size m
  */
 public class Knapsack_Sub1 {
 
