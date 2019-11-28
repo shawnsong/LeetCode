@@ -47,4 +47,16 @@ public class CompleteKnapsack {
         }
         return dp[k];
     }
-}
+
+    public int maxValueOptimized1(int[] weights, int[] values, int k) {
+        int[][] dp = new int[weights.length + 1][k + 1];
+        for (int i = 1; i <= weights.length; i++) {
+            for (int j = 1; j <= k; j++) {
+                dp[i][j] = dp[i-1][j];
+                if (j >= weights[i-1]) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i][j - weights[i-1]] + values[i - 1]);
+                }
+            }
+        }
+        return dp[weights.length][k];
+    }}
