@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Q321__Sub1Test {
+class Q321_Sub1Test {
 
     Q321_Sub1 test = new Q321_Sub1();
 
