@@ -10,6 +10,9 @@ class Q788Test {
     @Test
     void rotatedDigits() {
         assertEquals(4, test.rotatedDigits(10));
+        assertEquals(247, test.rotatedDigits(857));
+        assertEquals(4, test.rotate(10));
+        assertEquals(247, test.rotate(857));
     }
 
     @Test

@@ -2,7 +2,7 @@ package leetcode;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Q743_NetworkDelayTimeTest {
     Q743_NetworkDelayTime test = new Q743_NetworkDelayTime();
