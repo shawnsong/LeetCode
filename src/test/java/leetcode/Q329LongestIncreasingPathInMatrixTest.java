@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Q329Test {
+class Q329LongestIncreasingPathInMatrixTest {
 
-    Q329 test = new Q329();
+    Q329_LongestIncreasingPathInMatrix test = new Q329_LongestIncreasingPathInMatrix();
 
     @Test
     void longestIncreasingPath() {
