@@ -22,8 +22,18 @@ public class Q321_Sub2 {
         int k = num1.length + num2.length;
         int[] arr = new int[k];
         int i = 0, j = 0, pos = 0;
-        while (pos < k) {
-            if (greater(num1, i, num2, j)) {
+//        while (pos < k) {
+//            if (greater(num1, i, num2, j)) {
+//                arr[pos] = num1[i];
+//                i++;
+//            } else {
+//                arr[pos] = num2[j];
+//                j++;
+//            }
+//            pos++;
+//        }
+        while (i < num1.length && j < num2.length) {
+            if (num1[i] > num2[j]) {
                 arr[pos] = num1[i];
                 i++;
             } else {
@@ -32,6 +42,17 @@ public class Q321_Sub2 {
             }
             pos++;
         }
+        while (i < num1.length) {
+            arr[pos] = num1[i];
+            i++;
+            pos++;
+        }
+        while (j < num2.length) {
+            arr[pos] = num2[j];
+            j++;
+            pos++;
+        }
+
         StringBuilder sb = new StringBuilder();
         for (int num : arr) {
             sb.append(num);
@@ -43,6 +64,7 @@ public class Q321_Sub2 {
         while (i < num1.length && j < num2.length && num1[i] == num2[j]) {
             i++;
             j++;
-        } return j == num2.length || (i < num1.length && num1[i] > num2[j]);
+        }
+        return j == num2.length || (i < num1.length && num1[i] > num2[j]);
     }
 }
