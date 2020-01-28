@@ -22,7 +22,7 @@ public class Q338_CountingBits {
         dp[0] = 0;
 
         for (int i = 0; i <= num; i++) {
-            dp[i] = (i % 2) + dp[i >> 1];
+            dp[i] = (i & 1) + dp[i >> 1];
         }
         return dp;
 	}
