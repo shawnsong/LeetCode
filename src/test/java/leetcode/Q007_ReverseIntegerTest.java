@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Q007_ReverseIntegerTest {
 
-    @Test
-    void testReverse() {
+  @Test
+  public void testReverse() {
 
         System.out.println(Integer.MAX_VALUE);
         System.out.println(Integer.MIN_VALUE);

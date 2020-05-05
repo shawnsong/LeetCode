@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.HashMap;
+import leetcode.models.RandomListNode;
 
 /*
 A linked list is given such that each node contains an additional random pointer 
