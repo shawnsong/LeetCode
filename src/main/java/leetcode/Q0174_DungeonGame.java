@@ -8,24 +8,23 @@ package leetcode;
  */
 public class Q0174_DungeonGame {
     public int minHp(int[][] board) {
-        int m = board.length, n = board[0].length;
+        int m = board.length;
+        int n = board[0].length;
 
-        int[][] minHp = new int[m][n];
-        minHp[m - 1][n - 1] = 1;
-
-        for (int i = m - 2; i >= 0; i--) {
-            minHp[i][n - 1] = Math.max(1, minHp[i+1][n-1] - board[i][n - 1]);
-        }
-        for (int i = n - 2; i >= 0; i--) {
-            minHp[m-1][i] = Math.max(1, minHp[m - 1][i + 1] - board[m - 1][i]);
-        }
-
-        for (int i = m - 2; i >= 0; i--) {
-            for (int j = n - 2; j >= 0; j--) {
-                int min = Math.min(minHp[i + 1][j], minHp[i][j+1]);
-                minHp[i][j] =  Math.max(1, min - board[i][j]);
+        int[][] mins = new int[m][n];
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                if (i == m - 1 && j == n - 1) {
+                    mins[i][j] = Math.max(1, 1 - board[i][j]);
+                } else if (i == m - 1) {
+                    mins[i][j] = Math.max(1, mins[i][j+1] - board[i][j]);
+                } else  if (j == n - 1) {
+                    mins[i][j] = Math.max(1, mins[i+1][j] - board[i][j]);
+                } else {
+                  mins[i][j] = Math.max(1, Math.min(mins[i+1][j], mins[i][j+1]) - board[i][j]);
+                }
             }
         }
-        return minHp[0][0];
+        return mins[0][0];
     }
 }
