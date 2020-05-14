@@ -6,7 +6,7 @@ package leetcode;
  * -1, -5,  10,   1
  * -2,  1,  -3,   0
  */
-public class Q174_DungeonGame {
+public class Q0174_DungeonGame {
     public int minHp(int[][] board) {
         int m = board.length, n = board[0].length;
 

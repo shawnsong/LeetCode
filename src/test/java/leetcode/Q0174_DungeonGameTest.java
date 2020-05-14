@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Q174_DungeonGameTest {
+class Q0174_DungeonGameTest {
 
-    Q174_DungeonGame test = new Q174_DungeonGame();
+    Q0174_DungeonGame test = new Q0174_DungeonGame();
     @Test
     void minHp() {
         int[][] board = {
